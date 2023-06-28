@@ -1,0 +1,6 @@
+.profile__avatar-container {
+  display: block;
+  width: 120px;
+  height: 120px;
+  background: rgba(0, 0, 0 , .8) url(../../../images/svg/avatarEditPen.svg) no-repeat center;
+}

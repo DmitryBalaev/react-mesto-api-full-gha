@@ -1,0 +1,6 @@
+.full-screen__image {
+  width: 100%;
+  max-width: 75vw;
+  max-height: 75vh;
+  display: block;
+}

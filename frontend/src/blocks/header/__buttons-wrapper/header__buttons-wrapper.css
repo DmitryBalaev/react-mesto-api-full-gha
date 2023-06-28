@@ -1,0 +1,12 @@
+.header__buttons-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: center;
+}
+
+@media screen and (max-width: 700px) {
+  .header__buttons-wrapper{
+    flex-direction: column;
+  }
+}
