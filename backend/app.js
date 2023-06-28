@@ -13,7 +13,6 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { PORT = 3000, MONGO_DB = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 
 const app = express();
-app.use(cors());
 app.use(cookieParser());
 
 const limiter = rateLimit({
@@ -22,6 +21,7 @@ const limiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
 });
+app.use(cors());
 
 mongoose.set('strictQuery', false);
 mongoose.connect(MONGO_DB, {

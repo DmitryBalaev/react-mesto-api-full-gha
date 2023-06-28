@@ -70,7 +70,7 @@ function App() {
           }
         })
         .catch((err) => {
-          return err.then((res) => handleInfoToolTipError(res))
+          return handleInfoToolTipError(err)
         })
     }
   }
