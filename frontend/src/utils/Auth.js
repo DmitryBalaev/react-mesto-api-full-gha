@@ -1,4 +1,4 @@
-const BASE_URL = 'https://auth.nomoreparties.co'
+const BASE_URL = 'https://api.mesto.dmitrybalaev.nomoreparties.sbs'
 
 function handleResponse(res) {
   return res.ok ? res.json() : Promise.reject(res.json().then(res => res))

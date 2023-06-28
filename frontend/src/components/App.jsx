@@ -36,6 +36,7 @@ function App() {
 
   function handleRegister() {
     if (valueRegister.email || valueRegister.password) {
+      console.log(valueRegister.email)
       auth
         .register(valueRegister)
         .then(() => {
@@ -44,7 +45,7 @@ function App() {
           setValueRegister({});
         })
         .catch((err) => {
-          return err.then((res) => handleInfoToolTipError(res))
+          return handleInfoToolTipError(err)
         })
     }
   }

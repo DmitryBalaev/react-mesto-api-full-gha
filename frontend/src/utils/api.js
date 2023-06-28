@@ -2,13 +2,17 @@ import apiObj from './utils'
 
 class Api {
 	constructor(optionObj) {
-		this._url = optionObj.url
+		this._url = 'https://api.mesto.dmitrybalaev.nomoreparties.sbs/'
 		this._headers = optionObj.headers
 	}
 
 	getInitialCards() {
 		return fetch(`${this._url}cards`, {
-			headers: this._headers
+			headers: {
+				'Content-Type': 'application/json',
+				authorization: `Bearer ${localStorage.getItem("jwt")}`,
+				Accept: "*/*"
+			}
 		})
 			.then(this._handleResponse)
 	}
@@ -19,14 +23,21 @@ class Api {
 
 	getUserInfo() {
 		return fetch(`${this._url}users/me`, {
-			headers: this._headers
+			headers: {
+				"Content-Type": "application/json",
+				authorization: `Bearer ${localStorage.getItem("jwt")}`,
+				Accept: "*/*"
+			}
 		})
 			.then(this._handleResponse)
 	}
 
 	sendAvatar(link) {
 		return fetch(`${this._url}users/me/avatar`, {
-			headers: this._headers,
+			headers: {
+				"Content-Type": "application/json",
+				authorization: `Bearer ${localStorage.getItem("jwt")}`,
+			},
 			method: 'PATCH',
 			body: JSON.stringify(link)
 		})
@@ -35,7 +46,10 @@ class Api {
 
 	sendUserData(data) {
 		return fetch(`${this._url}users/me`, {
-			headers: this._headers,
+			headers: {
+				"Content-Type": "application/json",
+				authorization: `Bearer ${localStorage.getItem("jwt")}`,
+			},
 			method: 'PATCH',
 			body: JSON.stringify(data)
 		})
@@ -44,7 +58,10 @@ class Api {
 
 	sendNewCard(data) {
 		return fetch(`${this._url}cards`, {
-			headers: this._headers,
+			headers: {
+				"Content-Type": "application/json",
+				authorization: `Bearer ${localStorage.getItem("jwt")}`,
+			},
 			method: 'POST',
 			body: JSON.stringify(data)
 		})
@@ -53,7 +70,10 @@ class Api {
 
 	deleteCard(id) {
 		return fetch(`${this._url}cards/${id}`, {
-			headers: this._headers,
+			headers: {
+				"Content-Type": "application/json",
+				authorization: `Bearer ${localStorage.getItem("jwt")}`,
+			},
 			method: 'DELETE'
 		})
 			.then(this._handleResponse)
@@ -62,13 +82,19 @@ class Api {
 	changeLikeCardStatus(id, isLiked) {
 		if (!isLiked) {
 			return fetch(`${this._url}cards/${id}/likes`, {
-				headers: this._headers,
+				headers: {
+					"Content-Type": "application/json",
+					authorization: `Bearer ${localStorage.getItem("jwt")}`,
+				},
 				method: 'PUT'
 			})
 				.then(this._handleResponse)
 		} else {
 			return fetch(`${this._url}cards/${id}/likes`, {
-				headers: this._headers,
+				headers: {
+					"Content-Type": "application/json",
+					authorization: `Bearer ${localStorage.getItem("jwt")}`,
+				},
 				method: 'DELETE'
 			})
 				.then(this._handleResponse)
