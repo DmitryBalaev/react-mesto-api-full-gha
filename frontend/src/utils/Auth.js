@@ -10,7 +10,6 @@ export async function register({ email, password }) {
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
-      credentials: "include"
     },
     body: JSON.stringify({ email, password }),
   })
@@ -23,10 +22,10 @@ export async function login({ email, password }) {
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
-      credentials: "include"
     },
     body: JSON.stringify({ email, password })
   })
+  console.log(res)
   return handleResponse(res)
 }
 
@@ -37,7 +36,6 @@ export async function checkToken(token) {
       "Accept": "application/json",
       "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`,
-      credentials: "include"
     }
   })
   return handleResponse(res)

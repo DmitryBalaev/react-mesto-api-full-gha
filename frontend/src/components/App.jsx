@@ -58,6 +58,7 @@ function App() {
 
   function handleLogin() {
     if (valueLogin.email || valueLogin.password) {
+      console.log(valueLogin)
       auth
         .login(valueLogin)
         .then((res) => {
@@ -83,9 +84,9 @@ function App() {
         .checkToken(jwt)
         .then((res) => {
           if (res) {
+            setLoggedIn(true)
             setUserEmail(res.data.email)
             navigate('/', { replace: true })
-            setLoggedIn(true)
           }
         })
         .catch((err) => console.log(err))

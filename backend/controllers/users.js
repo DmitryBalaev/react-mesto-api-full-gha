@@ -96,10 +96,6 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
     const user = await User.findUserByCredentials(email, password);
     const token = jwt.sign({ _id: user._id }, SECRET, { expiresIn: '7d' });
-    res.cookie('jwt', token, {
-      maxAge: 3600000 * 24 * 7,
-      httpOnly: true,
-    });
     res.send({ token });
   } catch (err) {
     next(err);
