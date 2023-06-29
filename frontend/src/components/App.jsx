@@ -45,7 +45,7 @@ function App() {
           setValueRegister({});
         })
         .catch((err) => {
-          return handleInfoToolTipError(err)
+          handleInfoToolTipError(err)
         })
     }
   }
@@ -71,7 +71,7 @@ function App() {
           }
         })
         .catch((err) => {
-          return handleInfoToolTipError(err)
+          handleInfoToolTipError(err)
         })
     }
   }
@@ -102,12 +102,12 @@ function App() {
       Promise.all([api.getUserInfo(), api.getInitialCards()])
         .then(([user, cards]) => {
           setCurrentUser(user)
-          setCards(cards)
+          setCards(cards.data)
         })
         .catch(err => console.log(err))
     }
+    
   }, [loggedIn])
-
   function handleImageClick(card) {
     setSelectedCard(card)
     setImagePopupOpen(true)
@@ -194,7 +194,7 @@ function App() {
   function handleAddPlaceSubmit(value) {
     api.sendNewCard(value)
       .then((res) => {
-        setCards([res, ...cards])
+        setCards([res.data, ...cards])
         closeAllPopups()
       })
       .catch((err) => console.log(err))
