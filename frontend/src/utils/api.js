@@ -5,6 +5,11 @@ class Api {
 		this._url = 'https://api.mesto.dmitrybalaev.nomoreparties.sbs/'
 		this._headers = optionObj.headers
 	}
+	_handleResponse(res) {
+		return res.ok ? res.json() : res.text().then((text) => {
+		  throw JSON.parse(text).message || JSON.parse(text).error;
+		})
+	  }
 
 	getInitialCards() {
 		return fetch(`${this._url}cards`, {
@@ -14,25 +19,18 @@ class Api {
 				Accept: "*/*",
 				credentials: "include"
 			}
-		})
-			.then(this._handleResponse)
+		}).then((res) => this._handleResponse(res))
 	}
 
-	_handleResponse(res) {
-		return res.ok ? res.json() : Promise.reject(res.status)
-	}
 
 	getUserInfo() {
-		console.log(localStorage.getItem('jwt'))
 		return fetch(`${this._url}users/me`, {
 			headers: {
 				"Content-Type": "application/json",
 				authorization: `Bearer ${localStorage.getItem("jwt")}`,
 				Accept: "*/*",
-				credentials: "include"
 			}
-		})
-			.then(this._handleResponse)
+		}).then((res) => this._handleResponse(res))
 	}
 
 	sendAvatar(link) {
@@ -44,8 +42,7 @@ class Api {
 			},
 			method: 'PATCH',
 			body: JSON.stringify(link)
-		})
-			.then(this._handleResponse)
+		}).then((res) => this._handleResponse(res))
 	}
 
 	sendUserData(data) {
@@ -57,8 +54,7 @@ class Api {
 			},
 			method: 'PATCH',
 			body: JSON.stringify(data)
-		})
-			.then(this._handleResponse)
+		}).then((res) => this._handleResponse(res))
 	}
 
 	sendNewCard(data) {
@@ -70,8 +66,7 @@ class Api {
 			},
 			method: 'POST',
 			body: JSON.stringify(data)
-		})
-			.then(this._handleResponse)
+		}).then((res) => this._handleResponse(res))
 	}
 
 	deleteCard(id) {
@@ -82,8 +77,7 @@ class Api {
 				credentials: "include"
 			},
 			method: 'DELETE'
-		})
-			.then(this._handleResponse)
+		}).then((res) => this._handleResponse(res))
 	}
 
 	changeLikeCardStatus(id, isLiked) {
@@ -92,21 +86,17 @@ class Api {
 				headers: {
 					"Content-Type": "application/json",
 					authorization: `Bearer ${localStorage.getItem("jwt")}`,
-					credentials: "include"
 				},
 				method: 'PUT'
-			})
-				.then(this._handleResponse)
+			}).then((res) => this._handleResponse(res))
 		} else {
 			return fetch(`${this._url}cards/${id}/likes`, {
 				headers: {
 					"Content-Type": "application/json",
 					authorization: `Bearer ${localStorage.getItem("jwt")}`,
-					credentials: "include"
 				},
 				method: 'DELETE'
-			})
-				.then(this._handleResponse)
+			}).then((res) => this._handleResponse(res))
 		}
 	}
 

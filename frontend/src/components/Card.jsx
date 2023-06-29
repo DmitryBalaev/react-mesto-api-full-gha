@@ -1,13 +1,11 @@
+/* eslint-disable no-unused-expressions */
 import React from 'react'
 import { CurrentUserContext } from '../context/CurrentUserContext'
 
 function Card({ card, onImageClick, onCardLike, onCardDelete }) {
-  const CurrentUser = React.useContext(CurrentUserContext)
-
-  console.log(card)
-
-  const isOwner = card.owner._id === CurrentUser._id
-  const isLiked = card.likes.some((i) => i._id === CurrentUser._id)
+  const currentUser = React.useContext(CurrentUserContext)
+  const isOwner = card.owner === currentUser._id;
+  const isLiked = card.likes.some((user) => user === currentUser._id);
   const likeBtnClassName = `cards__item-btn ${isLiked && 'cards__item-btn_active'}`
 
   function handleDeleteClick() {
@@ -23,7 +21,7 @@ function Card({ card, onImageClick, onCardLike, onCardDelete }) {
   }
 
   return (
-    <CurrentUserContext.Provider value={CurrentUser}>
+    <CurrentUserContext.Provider value={currentUser}>
       <li className="cards__item">
         {isOwner && <button className="card__item-trash-btn" onClick={handleDeleteClick}></button>}
         <img src={card.link} alt={card.name} className="cards__item-img" onClick={handleImageClick} />

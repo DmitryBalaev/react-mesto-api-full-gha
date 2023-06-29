@@ -1,7 +1,9 @@
 const BASE_URL = 'https://api.mesto.dmitrybalaev.nomoreparties.sbs'
 
 function handleResponse(res) {
-  return res.ok ? res.json() : Promise.reject(res.json().then(res => res))
+  return res.ok ? res.json() : res.text().then((text) => {
+    throw JSON.parse(text).message || JSON.parse(text).error;
+  })
 }
 
 export async function register({ email, password }) {

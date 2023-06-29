@@ -1,9 +1,17 @@
-import React from 'react'
-import Card from './Card'
-import { CurrentUserContext } from '../context/CurrentUserContext'
+import React from "react";
+import Card from "./Card";
+import { CurrentUserContext } from "../context/CurrentUserContext";
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace, onImageClick, onCardLike, onCardDelete, cards }) {
-  const currentUser = React.useContext(CurrentUserContext)
+function Main({
+  onEditAvatar,
+  onEditProfile,
+  onAddPlace,
+  onImageClick,
+  onCardLike,
+  onCardDelete,
+  cards,
+}) {
+  const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <main className="main">
@@ -37,15 +45,21 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onImageClick, onCardLik
       </section>
       <section className="cards">
         <ul className="cards__list">
-          {
-            cards.map((card) => (
-              <Card card={card} key={card._id} onImageClick={onImageClick} onCardLike={onCardLike} onCardDelete={onCardDelete} />
-            ))
-          }
+          {cards.map((card) => {
+            return (
+              <Card
+                key={card._id}
+                card={card}
+                onImageClick={onImageClick}
+                onCardLike={onCardLike}
+                onCardDelete={onCardDelete}
+              />
+            );
+          })}
         </ul>
       </section>
     </main>
-  )
+  );
 }
 
-export default Main
+export default Main;
