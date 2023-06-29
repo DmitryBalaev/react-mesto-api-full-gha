@@ -3,17 +3,14 @@ const mongoose = require('mongoose');
 const Card = require('../models/card');
 
 const { ValidationError } = mongoose.Error;
-const {
-  STATUS_OK_CREATED,
-  STATUS_OK,
-} = require('../utils/constants');
+const { STATUS_OK_CREATED } = require('../utils/constants');
 const { BadRequest } = require('../utils/responsesErrors/BadRequest');
 const { Forbidden } = require('../utils/responsesErrors/Forbidden');
 const { NotFound } = require('../utils/responsesErrors/NotFound');
 
 const getAllCards = (req, res, next) => {
   Card.find({})
-    .then((cards) => res.status(STATUS_OK).send({ data: cards }))
+    .then((cards) => res.send({ data: cards }))
     .catch((err) => next(err));
 };
 

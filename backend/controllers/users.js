@@ -17,21 +17,21 @@ const {
 const getAllUsers = (req, res, next) => {
   User.find({})
     .then((users) => res.send({ data: users }))
-    .catch((err) => next(err));
+    .catch(next);
 };
 
 const getUser = (req, res, next) => {
   User.findById(req.params.userId)
     .orFail(new NotFound(`Пользователь с таким ${req.params.userId} не найден.`))
     .then((user) => res.status(STATUS_OK).send({ data: user }))
-    .catch((err) => next(err));
+    .catch(next);
 };
 
 const getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
     .orFail(new NotFound(`Пользователь с таким ${req.user._id} не найден.`))
     .then((user) => res.send({ data: user }))
-    .catch((err) => next(err));
+    .catch(next);
 };
 
 const createUser = (req, res, next) => {
